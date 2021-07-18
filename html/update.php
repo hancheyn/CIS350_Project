@@ -21,7 +21,7 @@ if(isset($_POST['device1-chup']))
 {       
     $update = mysqli_query($MySQLConnection,"UPDATE commands SET Command='device1-chup',  Board='0', Status='0' WHERE ID = '1'");
 }
-if(isset($_POST['device1-chup']))
+if(isset($_POST['device1-chdown']))
 {       
     $update = mysqli_query($MySQLConnection,"UPDATE commands SET Command='device1-chdown',  Board='0', Status='0' WHERE ID = '1'");
 }

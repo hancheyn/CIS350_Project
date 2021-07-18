@@ -1,8 +1,3 @@
-<?php 
-include_once('getCommandStatus.php');
-?>
-
-
 <!doctype html>
 <html lang="en-US">
 <head>
@@ -52,10 +47,7 @@ include_once('getCommandStatus.php');
     <p class="text_column"> 
 	DEVICE NAME 1
 	<br>
-	<?php 
-	getCmdStatus();
-	?>
-	<br>
+	STATUS: <span style="	color: #E3070A ">COMMAND SENT</span> <br>
 	<br>
 	POWER&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 		<input type="submit" name="device1-power" id="device1-power" value="Send Command">
