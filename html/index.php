@@ -47,7 +47,7 @@ include_once('esp-database.php');
 	  
 	  
     <h2 class="hidden">About</h2>
-	<form id="form-device1" name="form-device1" method="post">
+	<form action="update.php" method="POST" id="form-device1" name="form-device1">
     <p class="text_column"> 
 	DEVICE NAME 1
 	<br>
@@ -55,35 +55,35 @@ include_once('esp-database.php');
 	<br>
 	<br>
 	POWER&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="button" name="device1-power" id="device1-power" value="SEND">
+		<input type="button" name="device1-power" id="device1-power" value="Submit">
 	<br>
 	VOLUME UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-		<input type="button" name="device1-volup" id="device1-volup" value="SEND">
+		<input type="button" name="device1-volup" id="device1-volup" value="Submit">
     <br>
 	VOLUME DOWN&nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="button" name="device1-voldown" id="device1-voldown" value="SEND">
+		<input type="button" name="device1-voldown" id="device1-voldown" value="Submit">
 	<br>
 	CHANNEL UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="button" name="device1-chup" id="device1-chup" value="SEND">
+		<input type="button" name="device1-chup" id="device1-chup" value="Submit">
 	<br>
 	CHANNEL DOWN&nbsp; &nbsp;&nbsp;
-		<input type="button" name="device1-chdown" id="device1-chdown" value="SEND">
+		<input type="button" name="device1-chdown" id="device1-chdown" value="Submit">
     </p>	
 	</form>
-    <form id="form-device1" name="form-device1" method="post">
+    <form id="form-device2" name="form-device2" method="post">
     <p class="text_column"> 
 	DEVICE NAME 2
 	<br>
 	STATUS: <span style="	color: #E3070A ">COMMAND SENT</span> <br>
 	<br>
 	POWER&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="button" name="device1-power" id="device1-power" value="SEND">
+		<input type="button" name="device2-power" id="device2-power" value="Submit">
 	<br>
 	TEMP UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-<input type="button" name="device1-volup" id="device1-volup" value="SEND">
+<input type="button" name="device2-volup" id="device2-volup" value="Submit">
     <br>
 	TEMP DOWN&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<input type="button" name="device1-voldown" id="device1-voldown" value="SEND">
+<input type="button" name="device2-voldown" id="device2-voldown" value="Submit">
 	
     </p>	
 	</form>
