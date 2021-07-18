@@ -47,6 +47,7 @@ include_once('esp-database.php');
 	  
 	  
     <h2 class="hidden">About</h2>
+
 	<form action="update.php" method="POST" id="form-device1" name="form-device1">
     <p class="text_column"> 
 	DEVICE NAME 1
@@ -60,8 +61,9 @@ include_once('esp-database.php');
 	VOLUME UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
 		<input type="button" name="device1-volup" id="device1-volup" value="Submit">
     <br>
+   <!-- test submit voldown -->
 	VOLUME DOWN&nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="button" name="device1-voldown" id="device1-voldown" value="Submit">
+		<input type="submit" name="device1-voldown" id="device1-voldown" value="device1-volup">
 	<br>
 	CHANNEL UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 		<input type="button" name="device1-chup" id="device1-chup" value="Submit">
@@ -71,6 +73,7 @@ include_once('esp-database.php');
     </p>	
 	</form>
     <form id="form-device2" name="form-device2" method="post">
+
     <p class="text_column"> 
 	DEVICE NAME 2
 	<br>
