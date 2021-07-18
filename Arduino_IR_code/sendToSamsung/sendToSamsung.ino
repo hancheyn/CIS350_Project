@@ -5,19 +5,19 @@ IRsend irsend;
 void setup() {
   Serial.begin(9600);
 
-  irsend.sendNEC(0xE0E0E01F, 32); //Power Code
+  irsend.sendNEC(0xE0E0E01F, 32); //Volume Up
   Serial.println("Volume");
   delay(800);
 
-  irsend.sendNEC(0xE0E0E01F, 32); //Power Code
+  irsend.sendNEC(0xE0E0E01F, 32); //Volume Up
   Serial.println("Volume");
   delay(800);
   
-  irsend.sendNEC(0xE0E0D02F, 32); //Power Code
+  irsend.sendNEC(0xE0E0D02F, 32); //Volume Down
   Serial.println("Volume");
   delay(800);
 
-  irsend.sendNEC(0xE0E0D02F, 32); //Power Code
+  irsend.sendNEC(0xE0E0D02F, 32); //Volume Down
   Serial.println("Volume");
   delay(800);
 
