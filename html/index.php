@@ -56,20 +56,20 @@ include_once('esp-database.php');
 	<br>
 	<br>
 	POWER&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="button" name="device1-power" id="device1-power" value="Submit">
+		<input type="submit" name="device1-power" id="device1-power" value="Send Command">
 	<br>
 	VOLUME UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-		<input type="button" name="device1-volup" id="device1-volup" value="Submit">
+		<input type="submit" name="device1-volup" id="device1-volup" value="Send Command">
     <br>
    <!-- test submit voldown -->
 	VOLUME DOWN&nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="submit" name="device1-voldown" id="device1-voldown" value="device1-volup">
+		<input type="submit" name="device1-voldown" id="device1-voldown" value="Send Command">
 	<br>
 	CHANNEL UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="button" name="device1-chup" id="device1-chup" value="Submit">
+		<input type="submit" name="device1-chup" id="device1-chup" value="Send Command">
 	<br>
 	CHANNEL DOWN&nbsp; &nbsp;&nbsp;
-		<input type="button" name="device1-chdown" id="device1-chdown" value="Submit">
+		<input type="submit" name="device1-chdown" id="device1-chdown" value="Send Command">
     </p>	
 	</form>
     <form id="form-device2" name="form-device2" method="post">

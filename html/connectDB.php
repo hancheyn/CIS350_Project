@@ -8,9 +8,9 @@
     $password = "$8QVe#m&P#";
 
 
-$db = mysqli_connect($servername, $username, $password, $dbname);
+$MySQLConnection = mysqli_connect($servername, $username, $password, $dbname);
 
-if(!$db)
+if(!$MySQLConnection)
 {
     die("Connection failed: " . mysqli_connect_error());
 }
