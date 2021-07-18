@@ -1,5 +1,5 @@
 <?php 
-include_once('esp-database.php');
+include_once('getCommandStatus.php');
 ?>
 
 
@@ -52,7 +52,7 @@ include_once('esp-database.php');
     <p class="text_column"> 
 	DEVICE NAME 1
 	<br>
-	STATUS: <span style="	color: #00D80D ">COMMAND RECEIVED</span>
+	getCmdStatus();
 	<br>
 	<br>
 	POWER&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
