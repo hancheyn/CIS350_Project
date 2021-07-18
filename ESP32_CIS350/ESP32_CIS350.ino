@@ -5,6 +5,7 @@
 //
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <string.h>
 
 //IR library (for ir remote functions)
 //#include <IRremote.h>
@@ -91,11 +92,10 @@ void loop() {
         Serial.println(payload);
 
   //PART 2 - SEARCH FOR COMMANDS
-  //!TRYING TO ISOLATE INFO BUT NEEDS WORK
       // Add in for loop to find important value once timer goes too high
     int index = 0, i_command = 0, i_val = 0, i_val2 = 0;
 
-      for(j=0; j < 20 && endfor <= 3; j++) {
+      for(j=0; j < payload.length() && endfor <= 5; j++) {
         if (payload[j] == 32) {
           ++endfor;
         }
@@ -104,23 +104,27 @@ void loop() {
             ++index;
           }
           else if (endfor == 2) {
+            //command[i_command] = payload[j];
+            //++i_command;
+          }
+          else if (endfor == 3) {
             command[i_command] = payload[j];
             ++i_command;
           }
-          else if (endfor == 3) {
+          else if (endfor == 4) {
+            
             command[i_command] = '\0';
             charVal = j;
           }
-          else if (endfor == 4) {
+          else if (endfor == 5) {
             
-            charVal = j;
+            //charVal = j;
           }
-        //}
       }
       //end of new for loop
       Serial.println(command);
-      //i = (int)payload[charVal-1] - '0';
-      Serial.println(payload[charVal]);
+      i = (int)payload[charVal-1] - '0';
+      Serial.println(i);
       }
     else {
       Serial.println("Error on HTTP request");
@@ -134,21 +138,21 @@ void loop() {
   delay(500);
 
 //OLD CONDITIONALS
-  if(i == 1) {
+  if(!strcmp(command,"device1-volup")) {
   digitalWrite(LED_1, HIGH);
   digitalWrite(LED_2, LOW);
   digitalWrite(LED_3, LOW);
   delay(300);
   }
 
-  if(i == 2) {
+  if(!strcmp(command,"device1-power")) {
   digitalWrite(LED_1, LOW);
   digitalWrite(LED_2, LOW);
   digitalWrite(LED_3, LOW);
   delay(300);
   }
 
-  if(i == 3) {
+  if(!strcmp(command,"device1-voldown")) {
   digitalWrite(LED_1, LOW);
   digitalWrite(LED_2, LOW);
   digitalWrite(LED_3, HIGH);
