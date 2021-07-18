@@ -52,7 +52,9 @@ include_once('getCommandStatus.php');
     <p class="text_column"> 
 	DEVICE NAME 1
 	<br>
+	<?php 
 	getCmdStatus();
+	?>
 	<br>
 	<br>
 	POWER&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
