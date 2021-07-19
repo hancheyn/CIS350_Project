@@ -1,8 +1,8 @@
 
 #include <MySQL_Generic_WiFi.h>
 
-char ssid[] = "ELLSWORTH-FL";        // your network SSID (name)
-char pass[] = "2048Cobalt!Fan";        // your network password
+char ssid[] = "your SSID";        // your network SSID (name)
+char pass[] = "your password here";        // your network password
 
 char user[]         = "remoteuser";              // MySQL user login username
 char password[]     = "fDTuZ6Z&Bt";          // MySQL user login password
