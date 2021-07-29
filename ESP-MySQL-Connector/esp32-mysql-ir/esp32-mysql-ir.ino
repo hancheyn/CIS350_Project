@@ -9,6 +9,8 @@
  * @author Austin Ellsworth 
  * @author Nathan Hanchey
  * @author Dale Betts
+ * 
+ * 
  *
  * @version 1.1
  * @since 2021-07-01 
@@ -20,27 +22,28 @@
 #define MYSQL_DEBUG_PORT      Serial
 #define _MYSQL_LOGLEVEL_      1
 
-//#include <Arduino.h>
 #include <IRremoteESP8266.h>
 #include <IRsend.h>
 
+
+void runInsert();
 
 #define LED_1 15
 #define LED_2 32
 #define LED_3 14
 
-const uint16_t kIrLed = 4;  
-IRsend irsend(4); //sets pin
+ //!Change Pin For your Board 
+IRsend irsend(A1); //sets pin
 
 /**
  * Wireless network SSID for WiFi connection.
  */
-char ssid[] = "Bamboo";
+char ssid[] = "Network";
 
 /**
  * Wireless network password.
  */
-char pass[] = "kungfupanda1";
+char pass[] = "password";
 
 /**
  * MySQL server username for database connection, must have R/W privileges.
@@ -90,7 +93,10 @@ int commandStatus;
 /**
  * String of the MySQL query used for fetching table values.
  */
-String query = String("SELECT * FROM cis350project.commands WHERE ID='1'");
+String query = String("SELECT * FROM cis350project.EEEE WHERE ID = '1'");
+
+#define insert "UPDATE cis350project.EEEE SET Status=1 WHERE ID = '1'"
+char iquery[128];
 
 /**
  * Create a MySQL_Connection variable to open and close connection.
@@ -248,51 +254,85 @@ void loop() {
   Serial.print(commandStatus);
   Serial.print("\n");
 
-
   // PART 3 - IR CONTROLS / MESSAGE
   // NOT YET FULLY ADDED
   // Use Switch Case
   
-  if (!strcmp(Command, "device1-power")) {
-    irsend.sendNEC(0xE0E0E01F, 32);  // POWER VISO
+  if (!strcmp(Command, "device1-power") && !commandStatus) {
+    irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
     delay(800);
-  digitalWrite(LED_1, LOW);
-  digitalWrite(LED_2, HIGH);
-  digitalWrite(LED_3, LOW);    
+    digitalWrite(LED_1, LOW);
+    digitalWrite(LED_2, HIGH);
+    digitalWrite(LED_3, LOW); 
+    
+    conn.connectNonBlocking(server_addr, server_port, user, password);
+        delay(500);
+        runInsert();
+        conn.close(); 
   }
   
-  if (!strcmp(Command, "device1-volup")) {
-    irsend.sendNEC(0xE0E0E01F, 32);  // Volume Up
+  if (!strcmp(Command, "device1-volup") && !commandStatus) {
+    irsend.sendNEC(0x20DF40BF, 32);  // Volume Up
     delay(800);  // At least 800 ms delay for signal
-  digitalWrite(LED_1, HIGH);
-  digitalWrite(LED_2, LOW);
-  digitalWrite(LED_3, LOW);
+    digitalWrite(LED_1, HIGH);
+    digitalWrite(LED_2, LOW);
+    digitalWrite(LED_3, LOW);
+    
+    conn.connectNonBlocking(server_addr, server_port, user, password);
+        delay(500);
+        runInsert();
+        conn.close();
   }
 
-  if (!strcmp(Command, "device1-voldown")) {
-    irsend.sendNEC(0xE0E0D02F, 32);  // Volume Down Samsung
+  if (!strcmp(Command, "device1-voldown") && !commandStatus) {
+    irsend.sendNEC(0x20DFC03F, 32);  // Volume Down Samsung
     delay(800);
-  digitalWrite(LED_1, HIGH);
-  digitalWrite(LED_2, LOW);
-  digitalWrite(LED_3, HIGH);    
+    digitalWrite(LED_1, HIGH);
+    digitalWrite(LED_2, LOW);
+    digitalWrite(LED_3, HIGH);    
+    
+    conn.connectNonBlocking(server_addr, server_port, user, password);
+        delay(500);
+        runInsert();
+        conn.close();
   }
 
-  if (!strcmp(Command, "device1-chup")) {
-    irsend.sendNEC(0xE0E0E01F, 32);  // POWER VISO
+  if (!strcmp(Command, "device1-chup") && !commandStatus) {
+    irsend.sendNEC(0x20DF00FF, 32);  // POWER VISO
     delay(800);
-  digitalWrite(LED_1, LOW);
-  digitalWrite(LED_2, HIGH);
-  digitalWrite(LED_3, HIGH);    
+    digitalWrite(LED_1, LOW);
+    digitalWrite(LED_2, HIGH);
+    digitalWrite(LED_3, HIGH);    
+
+    conn.connectNonBlocking(server_addr, server_port, user, password);
+        delay(500);
+        runInsert();
+        conn.close();
   }
   
-  if (!strcmp(Command, "device1-chdown")) {
-    irsend.sendNEC(0xE0E0E01F, 32);  // Volume Up
+  if (!strcmp(Command, "device1-chdown") && !commandStatus) {
+    irsend.sendNEC(0x20DF807F, 32);  // Volume Up
     delay(800);  // At least 800 ms delay for signal
-  digitalWrite(LED_1, LOW);
-  digitalWrite(LED_2, LOW);
-  digitalWrite(LED_3, LOW);
+    digitalWrite(LED_1, LOW);
+    digitalWrite(LED_2, LOW);
+    digitalWrite(LED_3, LOW);
+
+    conn.connectNonBlocking(server_addr, server_port, user, password);
+        delay(500);
+        runInsert();
+        conn.close();
   }
-  
+
   delay(500);
+}
+
+
+void runInsert() {
+  
+  // Initiate the query class instance
+  MySQL_Query query_mem = MySQL_Query(&conn);
+  conn.connected();
+  MYSQL_DISPLAY(insert);
+  query_mem.execute(insert);
 
 }
