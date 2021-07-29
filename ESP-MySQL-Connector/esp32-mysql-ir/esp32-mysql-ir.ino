@@ -28,10 +28,6 @@
 
 void runInsert();
 
-#define LED_1 15
-#define LED_2 32
-#define LED_3 14
-
  //!Change Pin For your Board 
 IRsend irsend(A1); //sets pin
 
@@ -114,10 +110,6 @@ MySQL_Query sql_query = MySQL_Query(&conn);
  */
 void setup() {
 
-  pinMode(LED_1, OUTPUT);
-  pinMode(LED_2, OUTPUT);
-  pinMode(LED_3, OUTPUT);
-  
   Serial.begin(115200);
   while (!Serial) {};
   MYSQL_DISPLAY(MYSQL_MARIADB_GENERIC_VERSION);
@@ -261,9 +253,6 @@ void loop() {
   if (!strcmp(Command, "device1-power") && !commandStatus) {
     irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
     delay(800);
-    digitalWrite(LED_1, LOW);
-    digitalWrite(LED_2, HIGH);
-    digitalWrite(LED_3, LOW); 
     
     conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
@@ -274,9 +263,7 @@ void loop() {
   if (!strcmp(Command, "device1-volup") && !commandStatus) {
     irsend.sendNEC(0x20DF40BF, 32);  // Volume Up
     delay(800);  // At least 800 ms delay for signal
-    digitalWrite(LED_1, HIGH);
-    digitalWrite(LED_2, LOW);
-    digitalWrite(LED_3, LOW);
+
     
     conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
@@ -287,9 +274,7 @@ void loop() {
   if (!strcmp(Command, "device1-voldown") && !commandStatus) {
     irsend.sendNEC(0x20DFC03F, 32);  // Volume Down Samsung
     delay(800);
-    digitalWrite(LED_1, HIGH);
-    digitalWrite(LED_2, LOW);
-    digitalWrite(LED_3, HIGH);    
+  
     
     conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
@@ -300,9 +285,7 @@ void loop() {
   if (!strcmp(Command, "device1-chup") && !commandStatus) {
     irsend.sendNEC(0x20DF00FF, 32);  // POWER VISO
     delay(800);
-    digitalWrite(LED_1, LOW);
-    digitalWrite(LED_2, HIGH);
-    digitalWrite(LED_3, HIGH);    
+   
 
     conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
@@ -313,9 +296,7 @@ void loop() {
   if (!strcmp(Command, "device1-chdown") && !commandStatus) {
     irsend.sendNEC(0x20DF807F, 32);  // Volume Up
     delay(800);  // At least 800 ms delay for signal
-    digitalWrite(LED_1, LOW);
-    digitalWrite(LED_2, LOW);
-    digitalWrite(LED_3, LOW);
+
 
     conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
