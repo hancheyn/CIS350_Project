@@ -16,23 +16,31 @@
 
 #include <MySQL_Generic_WiFi.h>
 #include <string.h>
-#include <IRremote.h>
 
 #define MYSQL_DEBUG_PORT      Serial
 #define _MYSQL_LOGLEVEL_      1
-#define TIMER_PWM_PIN  12
 
-IRsend irsend;  // PIN 3 Default
+//#include <Arduino.h>
+#include <IRremoteESP8266.h>
+#include <IRsend.h>
+
+
+#define LED_1 15
+#define LED_2 32
+#define LED_3 14
+
+const uint16_t kIrLed = 4;  
+IRsend irsend(4); //sets pin
 
 /**
  * Wireless network SSID for WiFi connection.
  */
-char ssid[] = "YourSSIDHere";
+char ssid[] = "Bamboo";
 
 /**
  * Wireless network password.
  */
-char pass[] = "Your network password";
+char pass[] = "kungfupanda1";
 
 /**
  * MySQL server username for database connection, must have R/W privileges.
@@ -99,6 +107,11 @@ MySQL_Query sql_query = MySQL_Query(&conn);
  *Method to initialize serial communicaitons and setup Wifi. 
  */
 void setup() {
+
+  pinMode(LED_1, OUTPUT);
+  pinMode(LED_2, OUTPUT);
+  pinMode(LED_3, OUTPUT);
+  
   Serial.begin(115200);
   while (!Serial) {};
   MYSQL_DISPLAY(MYSQL_MARIADB_GENERIC_VERSION);
@@ -139,6 +152,17 @@ void setup() {
   MYSQL_DISPLAY3("Connecting to SQL Server @", server_addr, ", Port =",
   server_port);
   MYSQL_DISPLAY5("User =", user, ", PW =", password, ", DB =", "cis350project");
+
+
+  //*********************************************
+  //IR Remote
+  //*********************************************
+    irsend.begin();
+    #if ESP8266
+      Serial.begin(115200, SERIAL_8N1, SERIAL_TX_ONLY);
+    #else  // ESP8266
+      Serial.begin(115200, SERIAL_8N1);
+    #endif  // ESP8266
 }
 
 /**
@@ -228,18 +252,47 @@ void loop() {
   // PART 3 - IR CONTROLS / MESSAGE
   // NOT YET FULLY ADDED
   // Use Switch Case
+  
+  if (!strcmp(Command, "device1-power")) {
+    irsend.sendNEC(0xE0E0E01F, 32);  // POWER VISO
+    delay(800);
+  digitalWrite(LED_1, LOW);
+  digitalWrite(LED_2, HIGH);
+  digitalWrite(LED_3, LOW);    
+  }
+  
   if (!strcmp(Command, "device1-volup")) {
     irsend.sendNEC(0xE0E0E01F, 32);  // Volume Up
     delay(800);  // At least 800 ms delay for signal
-  }
-
-  if (!strcmp(Command, "device1-power")) {
-    delay(800);
+  digitalWrite(LED_1, HIGH);
+  digitalWrite(LED_2, LOW);
+  digitalWrite(LED_3, LOW);
   }
 
   if (!strcmp(Command, "device1-voldown")) {
     irsend.sendNEC(0xE0E0D02F, 32);  // Volume Down Samsung
     delay(800);
+  digitalWrite(LED_1, HIGH);
+  digitalWrite(LED_2, LOW);
+  digitalWrite(LED_3, HIGH);    
   }
+
+  if (!strcmp(Command, "device1-chup")) {
+    irsend.sendNEC(0xE0E0E01F, 32);  // POWER VISO
+    delay(800);
+  digitalWrite(LED_1, LOW);
+  digitalWrite(LED_2, HIGH);
+  digitalWrite(LED_3, HIGH);    
+  }
+  
+  if (!strcmp(Command, "device1-chdown")) {
+    irsend.sendNEC(0xE0E0E01F, 32);  // Volume Up
+    delay(800);  // At least 800 ms delay for signal
+  digitalWrite(LED_1, LOW);
+  digitalWrite(LED_2, LOW);
+  digitalWrite(LED_3, LOW);
+  }
+  
   delay(500);
+
 }
