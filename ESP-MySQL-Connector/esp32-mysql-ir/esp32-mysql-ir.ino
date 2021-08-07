@@ -88,6 +88,7 @@ int commandStatus;
 
 /**
  * String of the MySQL query used for fetching table values.
+ * !Change TABLE NAME FOR YOUR SPECIFIC CONTROLLER
  */
 String query = String("SELECT * FROM cis350project.EEEE WHERE ID = '1'");
 
@@ -218,6 +219,20 @@ void runReadQuery() {
 }
 
 /**
+ * Read query function runs the MySQL query string "insert", and iterates through
+ * the table row while updating the corresponding global variables to be used later
+ */
+void runInsert() {
+  
+  // Initiate the query class instance
+  MySQL_Query query_mem = MySQL_Query(&conn);
+  conn.connected();
+  MYSQL_DISPLAY(insert);
+  query_mem.execute(insert);
+
+}
+
+/**
  * Main loop function that tests the SQL connection, runs the sql query 
  * function, calls the appropriate function(s) and then updates the 
  * command status with another sql query
@@ -248,72 +263,82 @@ void loop() {
 
   // PART 3 - IR CONTROLS / MESSAGE
   // NOT YET FULLY ADDED
-  // Use Switch Case
-  
+  // Use Switch Case?
+
+  //POWER
   if (!strcmp(Command, "device1-power") && !commandStatus) {
     irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
     delay(800);
-    
-    conn.connectNonBlocking(server_addr, server_port, user, password);
+
+        //VISIO 20DF10EF
+        //YAMAHA 7E8154AB
+        //SAMSUNG 
+      
+        conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
         runInsert();
         conn.close(); 
   }
-  
+
+  //VOLUME UP
   if (!strcmp(Command, "device1-volup") && !commandStatus) {
     irsend.sendNEC(0x20DF40BF, 32);  // Volume Up
     delay(800);  // At least 800 ms delay for signal
 
+        //VISIO 20DF40BF
+        //YAMAHA 5EA158A7
+        //SAMSUNG 0xE0E0E01F
     
-    conn.connectNonBlocking(server_addr, server_port, user, password);
+        conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
         runInsert();
         conn.close();
   }
 
+  //VOLUME DOWN
   if (!strcmp(Command, "device1-voldown") && !commandStatus) {
     irsend.sendNEC(0x20DFC03F, 32);  // Volume Down Samsung
     delay(800);
-  
     
-    conn.connectNonBlocking(server_addr, server_port, user, password);
+        //VISIO 20DFC03F
+        //YAMAHA 5EA1D827
+        //SAMSUNG 0xE0E0D02F
+    
+        conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
         runInsert();
         conn.close();
   }
 
+  //CHANNEL UP
   if (!strcmp(Command, "device1-chup") && !commandStatus) {
     irsend.sendNEC(0x20DF00FF, 32);  // POWER VISO
     delay(800);
    
-
-    conn.connectNonBlocking(server_addr, server_port, user, password);
+        //VISIO 20DF00FF
+        //YAMAHA
+        //SAMSUNG
+        
+        conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
         runInsert();
         conn.close();
   }
-  
+
+  //CHANNEL DOWN
   if (!strcmp(Command, "device1-chdown") && !commandStatus) {
     irsend.sendNEC(0x20DF807F, 32);  // Volume Up
     delay(800);  // At least 800 ms delay for signal
-
-
-    conn.connectNonBlocking(server_addr, server_port, user, password);
+    
+        //VISIO 20DF807F
+        //YAMAHA
+        //SAMSUNG
+        
+        conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
         runInsert();
         conn.close();
   }
 
   delay(500);
-}
-
-
-void runInsert() {
-  
-  // Initiate the query class instance
-  MySQL_Query query_mem = MySQL_Query(&conn);
-  conn.connected();
-  MYSQL_DISPLAY(insert);
-  query_mem.execute(insert);
-
 }
