@@ -16,16 +16,32 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
+<?php
+$device = "commands";
+//loop through and grab variables off the URL
+foreach($_REQUEST as $key => $value)
+{
+if($key =="device"){
+$device = $value;
+}
+}//for each
+if($device == "0") {
+ header("location: login.php");
+}
+//echo "<h1>". $device . " </h1>";
+?>
+
 <body>
 <!-- Main Container -->
-<div class="container"> 
+<div class="container">
   <!-- Navigation -->
   <header> <a href="">
     <h4 class="logo">GVSU&nbsp;&nbsp;</h4>
     </a>
     <nav>
-      <ul>
-        
+<ul>
+
         <li> <a href="#contact">ABOUT</a></li>
       </ul>
     </nav>
@@ -37,56 +53,61 @@
     <p class="tagline">BY DALE BETTS, AUSTIN ELLSWORTH, &amp;&nbsp; NATHAN HANCHEY</p>
   </section>
   <!-- About Section -->
+  
   <section class="about" id="about">
-	 
-	  
-	  
-    <h2 class="hidden">About</h2>
+      <h2 class="hidden">About</h2>
+      
+  <form action="update.php" method="POST" id="form-device1" name="form-device1">
+        <?php echo "<input type='hidden' name='DeviceID' id='DeviceID' value='{$device}'>" ?>
+    <p class="text_column">
+        DEVICE NAME 1
+        <br>
+        STATUS: <span style="   color: #E3070A ">COMMAND SENT</span> <br>
+        Remote Type (Visio | Samsung | Yamaha): <br>
+        <input type='text' name='remotetype' value='' size='15'>
+        <br>
 
-	<form action="update.php" method="POST" id="form-device1" name="form-device1">
-    <p class="text_column"> 
-	DEVICE NAME 1
+        <br>
+        POWER&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <input type="submit" name="device1-power" id="device1-power" value="Send Command">
+        <br>
+        VOLUME UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                <input type="submit" name="device1-volup" id="device1-volup" value="Send Command">
 	<br>
-	STATUS: <span style="	color: #E3070A ">COMMAND SENT</span> <br>
-	<br>
-	POWER&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="submit" name="device1-power" id="device1-power" value="Send Command">
-	<br>
-	VOLUME UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-		<input type="submit" name="device1-volup" id="device1-volup" value="Send Command">
-    <br>
-   <!-- test submit voldown -->
-	VOLUME DOWN&nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="submit" name="device1-voldown" id="device1-voldown" value="Send Command">
-	<br>
-	CHANNEL UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="submit" name="device1-chup" id="device1-chup" value="Send Command">
-	<br>
-	CHANNEL DOWN&nbsp; &nbsp;&nbsp;
-		<input type="submit" name="device1-chdown" id="device1-chdown" value="Send Command">
-    </p>	
-	</form>
+	<!-- test submit voldown -->
+        VOLUME DOWN&nbsp; &nbsp; &nbsp; &nbsp;
+                <input type="submit" name="device1-voldown" id="device1-voldown" value="Send Command">
+        <br>
+        CHANNEL UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <input type="submit" name="device1-chup" id="device1-chup" value="Send Command">
+        <br>
+        CHANNEL DOWN&nbsp; &nbsp;&nbsp;
+                <input type="submit" name="device1-chdown" id="device1-chdown" value="Send Command">
+    </p>
+        </form>
     <form id="form-device2" name="form-device2" method="post">
+    <?php echo "<input type='hidden' name='DeviceID' id='DeviceID' value='{$device}'>" ?>
 
-    <p class="text_column"> 
-	DEVICE NAME 2
-	<br>
-	STATUS: <span style="	color: #E3070A ">COMMAND SENT</span> <br>
-	<br>
-	POWER&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		<input type="button" name="device2-power" id="device2-power" value="Submit">
-	<br>
-	TEMP UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+    <p class="text_column">
+        DEVICE NAME 2
+        <br>
+        STATUS: <span style="   color: #E3070A ">COMMAND SENT</span> <br>
+        <br>
+        POWER&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <input type="button" name="device2-power" id="device2-power" value="Submit">
+        <br>
+        TEMP UP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
 <input type="button" name="device2-volup" id="device2-volup" value="Submit">
     <br>
-	TEMP DOWN&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        TEMP DOWN&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 <input type="button" name="device2-voldown" id="device2-voldown" value="Submit">
-	
-    </p>	
-	</form>
-	  
+
+    </p>
+        </form>
+
     <p class="text_column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
   </section>
+
  
   <!-- Stats Gallery Section -->
   <!-- Parallax Section -->
