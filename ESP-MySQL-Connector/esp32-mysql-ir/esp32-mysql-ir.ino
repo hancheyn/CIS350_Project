@@ -269,10 +269,23 @@ void loop() {
   if (!strcmp(Command, "device1-power") && !commandStatus) {
     irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
     delay(800);
-
         //VISIO 20DF10EF
         //YAMAHA 7E8154AB
-        //SAMSUNG 
+        //SAMSUNG
+
+        switch(Board) {
+          case 1: 
+            //irsend.sendNEC(0x20DF10EF, 32);  // POWER SAMSUNG
+          break;
+          case 2:
+            irsend.sendNEC(0x7E8154AB, 32);  // POWER YAMAHA
+          break;
+          case 3:
+            irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
+          break;
+          default:
+            irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
+        }
       
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
@@ -288,6 +301,20 @@ void loop() {
         //VISIO 20DF40BF
         //YAMAHA 5EA158A7
         //SAMSUNG 0xE0E0E01F
+
+         switch(Board) {
+          case 1: 
+            irsend.sendNEC(0xE0E0E01F, 32);  //  SAMSUNG
+          break;
+          case 2:
+            irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
+          break;
+          case 3:
+            irsend.sendNEC(0x20DF40BF, 32);  //  VISO
+          break;
+          default:
+            irsend.sendNEC(0x20DF40BF, 32);  // POWER VISO
+        }
     
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
@@ -303,6 +330,20 @@ void loop() {
         //VISIO 20DFC03F
         //YAMAHA 5EA1D827
         //SAMSUNG 0xE0E0D02F
+
+         switch(Board) {
+          case 1: 
+            irsend.sendNEC(0xE0E0E01F, 32);  //  SAMSUNG
+          break;
+          case 2:
+            irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
+          break;
+          case 3:
+            irsend.sendNEC(0x20DF40BF, 32);  //  VISO
+          break;
+          default:
+            irsend.sendNEC(0x20DF40BF, 32);  // POWER VISO
+        }
     
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
@@ -318,6 +359,20 @@ void loop() {
         //VISIO 20DF00FF
         //YAMAHA
         //SAMSUNG
+
+        switch(Board) {
+          case 1: 
+            //irsend.sendNEC(0x20DF00FF, 32);  //  SAMSUNG
+          break;
+          case 2:
+            //irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
+          break;
+          case 3:
+            irsend.sendNEC(0x20DF00FF, 32);  //  VISO
+          break;
+          default:
+            irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
+        }
         
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
@@ -333,6 +388,21 @@ void loop() {
         //VISIO 20DF807F
         //YAMAHA
         //SAMSUNG
+
+        
+        switch(Board) {
+          case 1: 
+            //irsend.sendNEC(0x20DF00FF, 32);  //  SAMSUNG
+          break;
+          case 2:
+            //irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
+          break;
+          case 3:
+            irsend.sendNEC(0x20DF807F, 32);  //  VISO
+          break;
+          default:
+            irsend.sendNEC(0x20DF807F, 32);  // POWER VISO
+        }
         
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
