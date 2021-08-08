@@ -15,18 +15,19 @@
  * @version 1.1
  * @since 2021-07-01 
  */
-
-#include <MySQL_Generic_WiFi.h>
 #include <string.h>
-
-#define MYSQL_DEBUG_PORT      Serial
-#define _MYSQL_LOGLEVEL_      1
-
-#include <IRremoteESP8266.h>
-#include <IRsend.h>
-
-
-void runInsert();
+#include <stdlib.h>
+  
+#ifndef FACADE 
+  #include <MySQL_Generic_WiFi.h>  
+  #define MYSQL_DEBUG_PORT      Serial
+  #define _MYSQL_LOGLEVEL_      1
+  
+  #include <IRremoteESP8266.h>
+  #include <IRsend.h>
+#else 
+  #include "esp-myssql-ir.h"  
+#endif
 
  //!Change Pin For your Board 
 IRsend irsend(A1); //sets pin
@@ -91,7 +92,6 @@ int commandStatus;
  * !Change TABLE NAME FOR YOUR SPECIFIC CONTROLLER
  */
 String query = String("SELECT * FROM cis350project.EEEE WHERE ID = '1'");
-
 #define insert "UPDATE cis350project.EEEE SET Status=1 WHERE ID = '1'"
 char iquery[128];
 
@@ -219,8 +219,7 @@ void runReadQuery() {
 }
 
 /**
- * Read query function runs the MySQL query string "insert", and iterates through
- * the table row while updating the corresponding global variables to be used later
+ * Read query function runs the MySQL query string "insert", updating status of board
  */
 void runInsert() {
   
@@ -295,8 +294,6 @@ void loop() {
 
   //VOLUME UP
   if (!strcmp(Command, "device1-volup") && !commandStatus) {
-    irsend.sendNEC(0x20DF40BF, 32);  // Volume Up
-    delay(800);  // At least 800 ms delay for signal
 
         //VISIO 20DF40BF
         //YAMAHA 5EA158A7
@@ -315,7 +312,7 @@ void loop() {
           default:
             irsend.sendNEC(0x20DF40BF, 32);  // POWER VISO
         }
-    
+        delay(800);  // At least 800 ms delay for signal
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
         runInsert();
@@ -324,8 +321,7 @@ void loop() {
 
   //VOLUME DOWN
   if (!strcmp(Command, "device1-voldown") && !commandStatus) {
-    irsend.sendNEC(0x20DFC03F, 32);  // Volume Down Samsung
-    delay(800);
+
     
         //VISIO 20DFC03F
         //YAMAHA 5EA1D827
@@ -344,6 +340,8 @@ void loop() {
           default:
             irsend.sendNEC(0x20DF40BF, 32);  // POWER VISO
         }
+
+        delay(800);  // At least 800 ms delay for signal
     
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
@@ -353,8 +351,6 @@ void loop() {
 
   //CHANNEL UP
   if (!strcmp(Command, "device1-chup") && !commandStatus) {
-    irsend.sendNEC(0x20DF00FF, 32);  // POWER VISO
-    delay(800);
    
         //VISIO 20DF00FF
         //YAMAHA
@@ -373,7 +369,8 @@ void loop() {
           default:
             irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
         }
-        
+
+        delay(800);  // At least 800 ms delay for signal
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
         runInsert();
@@ -382,13 +379,10 @@ void loop() {
 
   //CHANNEL DOWN
   if (!strcmp(Command, "device1-chdown") && !commandStatus) {
-    irsend.sendNEC(0x20DF807F, 32);  // Volume Up
-    delay(800);  // At least 800 ms delay for signal
     
         //VISIO 20DF807F
         //YAMAHA
         //SAMSUNG
-
         
         switch(Board) {
           case 1: 
@@ -403,6 +397,7 @@ void loop() {
           default:
             irsend.sendNEC(0x20DF807F, 32);  // POWER VISO
         }
+        delay(800);  // At least 800 ms delay for signal
         
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
