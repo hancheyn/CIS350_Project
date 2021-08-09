@@ -17,20 +17,20 @@
  */
 #include <string.h>
 #include <stdlib.h>
-  
-#ifndef FACADE 
-  #include <MySQL_Generic_WiFi.h>  
+
+#ifndef FACADE
+  #include <MySQL_Generic_WiFi.h>
   #define MYSQL_DEBUG_PORT      Serial
   #define _MYSQL_LOGLEVEL_      1
-  
+
   #include <IRremoteESP8266.h>
   #include <IRsend.h>
-#else 
-  #include "esp-myssql-ir.h"  
+#else
+  #include "esp-myssql-ir.h"
 #endif
 
- //!Change Pin For your Board 
-IRsend irsend(A1); //sets pin
+// Change Pin For your Board
+IRsend irsend(A1);  // sets pin
 
 /**
  * Wireless network SSID for WiFi connection.
@@ -110,9 +110,8 @@ MySQL_Query sql_query = MySQL_Query(&conn);
  *Method to initialize serial communicaitons and setup Wifi. 
  */
 void setup() {
-
   Serial.begin(115200);
-  while (!Serial) {};
+  while (!Serial) {}
   MYSQL_DISPLAY(MYSQL_MARIADB_GENERIC_VERSION);
 
   // initialize WiFi module
@@ -134,7 +133,7 @@ void setup() {
   if (WiFi.status() == WL_NO_SHIELD) {
     MYSQL_DISPLAY(F("WiFi shield not present"));
     // don't continue
-    while (true) {};
+    while (true) {}
   }
 #endif
 
@@ -154,7 +153,7 @@ void setup() {
 
 
   //*********************************************
-  //IR Remote
+  // IR Remote
   //*********************************************
     irsend.begin();
     #if ESP8266
@@ -222,13 +221,11 @@ void runReadQuery() {
  * Read query function runs the MySQL query string "insert", updating status of board
  */
 void runInsert() {
-  
   // Initiate the query class instance
   MySQL_Query query_mem = MySQL_Query(&conn);
   conn.connected();
   MYSQL_DISPLAY(insert);
   query_mem.execute(insert);
-
 }
 
 /**
@@ -264,17 +261,17 @@ void loop() {
   // NOT YET FULLY ADDED
   // Use Switch Case?
 
-  //POWER
+  // POWER
   if (!strcmp(Command, "device1-power") && !commandStatus) {
     irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
     delay(800);
-        //VISIO 20DF10EF
-        //YAMAHA 7E8154AB
-        //SAMSUNG
+        // VISIO 20DF10EF
+        // YAMAHA 7E8154AB
+        // SAMSUNG
 
-        switch(Board) {
-          case 1: 
-            //irsend.sendNEC(0x20DF10EF, 32);  // POWER SAMSUNG
+        switch (Board) {
+          case 1:
+            // irsend.sendNEC(0x20DF10EF, 32);  // POWER SAMSUNG
           break;
           case 2:
             irsend.sendNEC(0x7E8154AB, 32);  // POWER YAMAHA
@@ -285,29 +282,27 @@ void loop() {
           default:
             irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
         }
-      
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
         runInsert();
-        conn.close(); 
+        conn.close();
   }
 
-  //VOLUME UP
+  // VOLUME UP
   if (!strcmp(Command, "device1-volup") && !commandStatus) {
+        // VISIO 20DF40BF
+        // YAMAHA 5EA158A7
+        // SAMSUNG 0xE0E0E01F
 
-        //VISIO 20DF40BF
-        //YAMAHA 5EA158A7
-        //SAMSUNG 0xE0E0E01F
-
-         switch(Board) {
-          case 1: 
-            irsend.sendNEC(0xE0E0E01F, 32);  //  SAMSUNG
+         switch (Board) {
+          case 1:
+            irsend.sendNEC(0xE0E0E01F, 32);  // SAMSUNG
           break;
           case 2:
-            irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
+            irsend.sendNEC(0x5EA158A7, 32);  // YAMAHA
           break;
           case 3:
-            irsend.sendNEC(0x20DF40BF, 32);  //  VISO
+            irsend.sendNEC(0x20DF40BF, 32);  // VISO
           break;
           default:
             irsend.sendNEC(0x20DF40BF, 32);  // POWER VISO
@@ -319,49 +314,45 @@ void loop() {
         conn.close();
   }
 
-  //VOLUME DOWN
+  // VOLUME DOWN
   if (!strcmp(Command, "device1-voldown") && !commandStatus) {
+        // VISIO 20DFC03F
+        // YAMAHA 5EA1D827
+        // SAMSUNG 0xE0E0D02F
 
-    
-        //VISIO 20DFC03F
-        //YAMAHA 5EA1D827
-        //SAMSUNG 0xE0E0D02F
-
-         switch(Board) {
-          case 1: 
-            irsend.sendNEC(0xE0E0E01F, 32);  //  SAMSUNG
+         switch (Board) {
+          case 1:
+            irsend.sendNEC(0xE0E0E01F, 32);  // SAMSUNG
           break;
           case 2:
-            irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
+            irsend.sendNEC(0x5EA158A7, 32);  // YAMAHA
           break;
           case 3:
-            irsend.sendNEC(0x20DF40BF, 32);  //  VISO
+            irsend.sendNEC(0x20DF40BF, 32);  // VISO
           break;
           default:
             irsend.sendNEC(0x20DF40BF, 32);  // POWER VISO
         }
 
         delay(800);  // At least 800 ms delay for signal
-    
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
         runInsert();
         conn.close();
   }
 
-  //CHANNEL UP
+  // CHANNEL UP
   if (!strcmp(Command, "device1-chup") && !commandStatus) {
-   
-        //VISIO 20DF00FF
-        //YAMAHA
-        //SAMSUNG
+        // VISIO 20DF00FF
+        // YAMAHA
+        // SAMSUNG
 
-        switch(Board) {
-          case 1: 
-            //irsend.sendNEC(0x20DF00FF, 32);  //  SAMSUNG
+        switch (Board) {
+          case 1:
+            // irsend.sendNEC(0x20DF00FF, 32);  //  SAMSUNG
           break;
           case 2:
-            //irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
+            // irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
           break;
           case 3:
             irsend.sendNEC(0x20DF00FF, 32);  //  VISO
@@ -377,19 +368,17 @@ void loop() {
         conn.close();
   }
 
-  //CHANNEL DOWN
+  // CHANNEL DOWN
   if (!strcmp(Command, "device1-chdown") && !commandStatus) {
-    
-        //VISIO 20DF807F
-        //YAMAHA
-        //SAMSUNG
-        
-        switch(Board) {
-          case 1: 
-            //irsend.sendNEC(0x20DF00FF, 32);  //  SAMSUNG
+        // VISIO 20DF807F
+        // YAMAHA
+        // SAMSUNG
+        switch (Board) {
+          case 1:
+            // irsend.sendNEC(0x20DF00FF, 32);  //  SAMSUNG
           break;
           case 2:
-            //irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
+            // irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
           break;
           case 3:
             irsend.sendNEC(0x20DF807F, 32);  //  VISO
@@ -398,7 +387,7 @@ void loop() {
             irsend.sendNEC(0x20DF807F, 32);  // POWER VISO
         }
         delay(800);  // At least 800 ms delay for signal
-        
+
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
         runInsert();
