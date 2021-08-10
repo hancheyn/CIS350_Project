@@ -18,8 +18,7 @@
  */
 #include <string.h>
 #include <stdlib.h>
-  
-#include <MySQL_Generic_WiFi.h>  
+#include <MySQL_Generic_WiFi.h>
 #define MYSQL_DEBUG_PORT      Serial
 #define _MYSQL_LOGLEVEL_      1
 
