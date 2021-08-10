@@ -89,7 +89,8 @@ int commandStatus;
  * !Change TABLE NAME FOR YOUR SPECIFIC CONTROLLER
  */
 String query = String("SELECT * FROM cis350project.commands WHERE ID = '1'");
-#define insert "UPDATE cis350project.commands SET Status=1 WHERE ID = '1'"
+String insert = String("UPDATE cis350project.commands SET Status=1 WHERE ID = '1'");
+
 char iquery[128];
 
 /**
