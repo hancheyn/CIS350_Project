@@ -1,4 +1,5 @@
 /**
+ * Copyright 2021 project authors
  * <h1> ESP32 IR Controller w/ Web Interface </h1>
  * <p>
  * Embedded project that accepts commands from a web interface
@@ -169,7 +170,7 @@ void setup() {
  */
 void runReadQuery() {
   row_values *row = NULL;
-  long head_count = 0;
+  int head_count = 0;
 
   // Initiate the query class instance
   MySQL_Query query_mem = MySQL_Query(&conn);
@@ -194,19 +195,19 @@ void runReadQuery() {
     if (row != NULL) {
       for (int f = 0; f < cols->num_fields; f++) {
         // MYSQL_DISPLAY0(row->values[f]);
-        if (f = 0) {
+        if (f == 0) {
           // SQL int read as Char so has to be converted back with atoi
           ID = atoi(row->values[f]);
         }
-        if (f = 1) {
+        if (f == 1) {
           // have to use strcopy because char array can't be assigned with =
           strcpy(Command, row->values[f]);
         }
-        if (f = 2) {
+        if (f == 2) {
           // SQL int read as Char so has to be converted back with atoi
           Board = atoi(row->values[f]);
         }
-        if (f = 3) {
+        if (f == 3) {
           // SQL int read as Char so has to be converted back with atoi
           commandStatus = atoi(row->values[f]);
         }
@@ -241,8 +242,7 @@ void loop() {
     runReadQuery();
     // close SQL connection--leave open if we are going to keep polling??
     conn.close();
-  }
-  else {
+  } else {
     MYSQL_DISPLAY("\nConnect failed. Trying again on next iteration.");
   }
 
