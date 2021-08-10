@@ -18,17 +18,14 @@
  */
 #include <string.h>
 #include <stdlib.h>
+  
+#include <MySQL_Generic_WiFi.h>  
+#define MYSQL_DEBUG_PORT      Serial
+#define _MYSQL_LOGLEVEL_      1
 
-#ifndef FACADE
-  #include <MySQL_Generic_WiFi.h>
-  #define MYSQL_DEBUG_PORT      Serial
-  #define _MYSQL_LOGLEVEL_      1
+#include <IRremoteESP8266.h>
+#include <IRsend.h>
 
-  #include <IRremoteESP8266.h>
-  #include <IRsend.h>
-#else
-  #include "esp-myssql-ir.h"
-#endif
 
 // Change Pin For your Board
 IRsend irsend(A1);  // sets pin
