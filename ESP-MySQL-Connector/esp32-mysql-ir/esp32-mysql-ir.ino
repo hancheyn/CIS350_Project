@@ -267,7 +267,7 @@ void loop() {
 
         switch (Board) {
           case 1:
-       irsend.sendNEC(0x20DF10EF, 32);  // POWER SAMSUNG
+            irsend.sendNEC(0xE0E040BF, 32);  // POWER SAMSUNG
           break;
           case 2:
             irsend.sendNEC(0x7E8154AB, 32);  // POWER YAMAHA
@@ -345,7 +345,7 @@ void loop() {
 
         switch (Board) {
           case 1:
-            //irsend.sendNEC(0x20DF00FF, 32);  //  SAMSUNG
+            irsend.sendNEC(0xE0E048B7, 32);  //  SAMSUNG
           break;
           case 2:
             //irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
@@ -371,7 +371,7 @@ void loop() {
         // SAMSUNG
         switch (Board) {
           case 1:
-            // irsend.sendNEC(0x20DF00FF, 32);  //  SAMSUNG
+            irsend.sendNEC(0xE0E008F7, 32);  //  SAMSUNG
           break;
           case 2:
             // irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
