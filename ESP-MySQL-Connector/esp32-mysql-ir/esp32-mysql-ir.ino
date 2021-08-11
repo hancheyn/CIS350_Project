@@ -268,7 +268,7 @@ void loop() {
 
         switch (Board) {
           case 1:
-            // irsend.sendNEC(0x20DF10EF, 32);  // POWER SAMSUNG
+       irsend.sendNEC(0x20DF10EF, 32);  // POWER SAMSUNG
           break;
           case 2:
             irsend.sendNEC(0x7E8154AB, 32);  // POWER YAMAHA
@@ -277,7 +277,7 @@ void loop() {
             irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
           break;
           default:
-            irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
+            irsend.sendNEC(0x20DF807F, 32);  // POWER VISO
         }
         conn.connectNonBlocking(server_addr, server_port, user, password);
         delay(500);
@@ -302,7 +302,7 @@ void loop() {
             irsend.sendNEC(0x20DF40BF, 32);  // VISO
           break;
           default:
-            irsend.sendNEC(0x20DF40BF, 32);  // POWER VISO
+            irsend.sendNEC(0x20DF807F, 32);  // POWER VISO
         }
         delay(800);  // At least 800 ms delay for signal
         conn.connectNonBlocking(server_addr, server_port, user, password);
@@ -328,7 +328,7 @@ void loop() {
             irsend.sendNEC(0x20DF40BF, 32);  // VISO
           break;
           default:
-            irsend.sendNEC(0x20DF40BF, 32);  // POWER VISO
+            irsend.sendNEC(0x20DF807F, 32);  // POWER VISO
         }
 
         delay(800);  // At least 800 ms delay for signal
@@ -346,16 +346,16 @@ void loop() {
 
         switch (Board) {
           case 1:
-            // irsend.sendNEC(0x20DF00FF, 32);  //  SAMSUNG
+            //irsend.sendNEC(0x20DF00FF, 32);  //  SAMSUNG
           break;
           case 2:
-            // irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
+            //irsend.sendNEC(0x5EA158A7, 32);  //  YAMAHA
           break;
           case 3:
             irsend.sendNEC(0x20DF00FF, 32);  //  VISO
           break;
           default:
-            irsend.sendNEC(0x20DF10EF, 32);  // POWER VISO
+            irsend.sendNEC(0x20DF807F, 32);  // POWER VISO
         }
 
         delay(800);  // At least 800 ms delay for signal
