@@ -27,17 +27,17 @@
 
 
 // Change Pin For your Board
-IRsend irsend(A1);  // sets pin
+IRsend irsend(4);  // sets pin
 
 /**
  * Wireless network SSID for WiFi connection.
  */
-char ssid[] = "Network";
+char ssid[] = "ELLSWORTH";
 
 /**
  * Wireless network password.
  */
-char pass[] = "password";
+char pass[] = "1024Blender!";
 
 /**
  * MySQL server username for database connection, must have R/W privileges.
@@ -88,9 +88,8 @@ int commandStatus;
  * String of the MySQL query used for fetching table values.
  * !Change TABLE NAME FOR YOUR SPECIFIC CONTROLLER
  */
-String query = String("SELECT * FROM cis350project.commands WHERE ID = '1'");
-String insert = String("UPDATE cis350project.commands SET Status=1 WHERE ID = '1'");
-
+String query = String("SELECT * FROM cis350project.AustinESP WHERE ID = '1'");
+#define insert "UPDATE cis350project.AustinESP SET Status=1 WHERE ID = '1'"
 char iquery[128];
 
 /**
@@ -325,7 +324,7 @@ void loop() {
             irsend.sendNEC(0x5EA158A7, 32);  // YAMAHA
           break;
           case 3:
-            irsend.sendNEC(0x20DF40BF, 32);  // VISO
+            irsend.sendNEC(0x20DFC03F, 32);  // VISO
           break;
           default:
             irsend.sendNEC(0x20DF807F, 32);  // POWER VISO
